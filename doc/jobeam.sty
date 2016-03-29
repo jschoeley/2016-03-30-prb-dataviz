@@ -1,0 +1,104 @@
+%%%% Init %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% latex-dependency
+\NeedsTeXFormat{LaTeX2e}
+% package metadata
+\ProvidesPackage{jobeam}[2015/08/18 Jonas' Beamer LaTeX Style]
+
+%%%% Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% font/encoding
+\usepackage[utf8]{inputenc}           % .tex-file text encoding
+\usepackage[T1]{fontenc}              % vector fonts and hiQual chars in output
+\usepackage{libertine}                % libertine font family
+\usepackage[libertine]{newtxmath}     % libertine mathematics
+\usepackage[scaled=0.9]{inconsolata}  % monospace font
+
+% figures
+\usepackage{graphicx}   % include external images
+
+% tables
+\usepackage{booktabs} % nice table rules
+
+% bibliography
+\usepackage[style = authoryear, % bibliography using biblatex
+            backend = biber,
+            bibencoding = utf8,
+            doi = false,
+            isbn = false]{biblatex}
+
+%%%% General Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% colours
+\definecolor{maincol}{RGB}{84, 84, 84} % main deco colour
+\usecolortheme{dove} % black/grey colours
+% font
+\usefonttheme{serif} % use serif fonts
+\setbeamerfont{frametitle}{series=\bfseries}
+% inner theme
+\useinnertheme{rectangles}
+% header
+\useoutertheme{miniframes} % nice shading in header
+\setbeamertemplate{headline}{} % disable section tree
+\setbeamercolor{frametitle}{fg=white, bg=maincol}
+% footline
+\setbeamertemplate{navigation symbols}{} % no nav symbols
+\setbeamertemplate{footline}[page number] % page number
+% figures
+\setkeys{Gin}{width=1.0\textwidth} % figures fill textwidth
+% list
+\setbeamertemplate{itemize items}[triangle] % list symbol
+% bibliography
+\setbeamertemplate{bibliography item}{} % no bibliography icon
+% pdf
+\hypersetup{pdfstartview={Fit}} % fit the presentation to the window
+% box colours
+\setbeamercolor*{block title}{fg=white,bg=darkgray}
+\setbeamercolor*{block body}{fg=black, bg=lightgray}
+
+%%%% Special Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% titlepage
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont{subtitle}{size=\Large, series=\mdseries}
+\setbeamerfont{author}{size = \large, series=\mdseries}
+\setbeamerfont{institute}{size=\normalsize, series=\mdseries}
+\defbeamertemplate*{title page}{customized}[1][]
+{
+  \centering
+  \usebeamerfont{title}\inserttitle\\\medskip
+  \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+  \vfill
+  \usebeamerfont{author}\insertauthor\par
+  \vfill
+  \usebeamerfont{institute}\insertinstitute\par
+  \usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
+}
+
+% footnotes without label
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{\tiny#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+% remove indentation for footnotes
+\renewcommand\@makefntext[1]{%
+  \noindent\makebox[0pt][r]{\@makefnmark}#1}
+\makeatother
+
+% decrease spacing between footnote-line and footnote
+\makeatletter
+\def\footnoterule{\kern0\p@
+  \hrule \@width 2in \kern 0\p@}
+\makeatother
+
+% figure placeholder (comment out to diable)
+% \makeatletter
+%   \AtBeginDocument{%
+%     \def\Ginclude@graphics#1{%
+%       \begingroup\fboxsep=-\fboxrule
+%       \fbox{\rule{\@ifundefined{Gin@@ewidth}{150pt}{\Gin@@ewidth}}{0pt}%
+%         \rule{0pt}{\@ifundefined{Gin@@eheight}{100pt}{\Gin@@eheight}}}\endgroup}}
+% \makeatother
